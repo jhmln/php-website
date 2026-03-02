@@ -2,7 +2,7 @@
 namespace Html;
 
 class PageController {
-    function renderHeader() {
+    function renderHeader($title = "Hello world!") {
         echo "<html>";
         echo "  <head>";
         echo "      <title>Hello world!</title>";
