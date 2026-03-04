@@ -2,7 +2,7 @@
 namespace Html;
 
 class PageController {
-    function renderHeader($title = "Hello world!") {      
+    function renderHeader($title = "Hello world!"): void {      
         $stylesheetPath = $this->buildPathToStyleSheet();
         
         echo "<html>";
@@ -15,12 +15,12 @@ class PageController {
         echo "  <body>";
     }
     
-    function renderFooter() {
+    function renderFooter(): void {
         echo "  </body>";
         echo "</html>";
     }
     
-    private function buildPathToStylesheet() {        
+    private function buildPathToStylesheet(): string {        
         $path = "";
         $uri = $_SERVER["REQUEST_URI"];
         

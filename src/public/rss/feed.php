@@ -12,9 +12,18 @@
 <div class="list">
 <?php
 foreach ($rows as $row) {
-    echo "<div>";
-    echo $row;
-    echo "</div>";
+    $uri = explode(";", $row)[1];    
+    $rss = simplexml_load_file($uri);
+    
+    foreach ($rss->channel->item as $item)
+    {   
+        $title = $item->title;
+        $link = $item->link; 
+        echo "<div>";
+        echo "<a href=\"".$link."\" target=\"_blank\" rel=\"noopener noreferrer\">".$title."</a>";
+        echo "</div>";
+    }
+    
 };
 ?>
 </div>
