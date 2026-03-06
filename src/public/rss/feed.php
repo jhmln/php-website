@@ -1,7 +1,9 @@
 <?php 
+    use Html\Anchor;
     use Html\PageController;
     use Rss\RssFeedItem;
     
+    require_once("../../application/Html/Anchor.php");
     require_once("../../application/Html/PageController.php");
     require_once("../../application/Rss/RssFeedItem.php");
     
@@ -33,17 +35,16 @@
         }
     }
     
-    usort($items, function($first,$second){
+    usort($items, function($first, $second){
         return $first->publicationDateUnix < $second->publicationDateUnix;
     });
         
     foreach ($items as $item)
     {
-        $title = $item->title;
-        $link = $item->link;
-        
         echo "<div>";
-        echo "<a href=\"".$link."\" target=\"_blank\" rel=\"noopener noreferrer\">".$title."</a>";
+        $anchor = new Anchor($item->title, $item->link);
+        $anchor->target = "_blank";
+        $anchor->render();
         echo "</div>";
     }
 ?>
