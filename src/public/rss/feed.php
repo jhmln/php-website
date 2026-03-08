@@ -12,7 +12,9 @@
     $page = new PageController();
     $page->renderHeader("RSS Feed");
 ?>
+<h1>RSS Feed</h1>
 <div class="list">
+	<ul>
 <?php
     $csv = new CsvReader("feed.csv");
     $items = [];
@@ -41,12 +43,21 @@
         
     foreach ($items as $item)
     {
-        echo "<div>";
+        echo "<li>";
+        echo "  <span>";
+        
+        echo "      <div>";
         $anchor = new Anchor($item->title, $item->link);
         $anchor->target = "_blank";
         $anchor->render();
-        echo "</div>";
+        echo "      </div>";
+        
+        echo "      <div>Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i")."</div>";
+        
+        echo "  </span>";
+        echo "</li>";
     }
 ?>
+	</ul>
 </div>
 <?php $page->renderFooter(); ?>
