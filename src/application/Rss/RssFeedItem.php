@@ -2,6 +2,8 @@
 namespace Rss;
 
 class RssFeedItem {
+    readonly string $source;
+    readonly string $sourceLink;
     readonly string $title;
     readonly string $link;
     readonly string $description;
@@ -10,12 +12,16 @@ class RssFeedItem {
     readonly int $publicationDateUnix;
     
     function __construct(
+        string $source,
+        string $sourceLink,
         string $title,
         string $link,
         string $description,
         string $guid,
         string $publicationDate
     ) {
+        $this->source = $source;
+        $this->sourceLink = $sourceLink;
         $this->title = $title;
         $this->link = $link;
         $this->description = $description;

@@ -26,6 +26,8 @@
         foreach ($rss->channel->item as $item)
         {   
             $rssItem = new RssFeedItem(
+                $rss->channel->title,
+                $rss->channel->link,
                 $item->title, 
                 $item->link, 
                 $item->description, 
@@ -52,7 +54,13 @@
         $anchor->render();
         echo "      </div>";
         
-        echo "      <div>Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i")."</div>";
+        echo "      <div>";
+        echo "Source: ";
+        $source = new Anchor($item->source, $item->sourceLink);
+        $source->target = "_blank";
+        $source->render();
+        echo ", Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
+        echo "      </div>";
         
         echo "  </span>";
         echo "</li>";
