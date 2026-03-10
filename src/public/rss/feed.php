@@ -12,6 +12,7 @@
     $page = new PageController();
     $page->renderHeader("RSS Feed");
 ?>
+<div style="width:750px;display:inline-block;vertical-align:top;box-sizing:border-box;padding-left:32px;">
 <h1>RSS Feed</h1>
 <div class="list">
 	<ul>
@@ -67,5 +68,6 @@
     }
 ?>
 	</ul>
+</div>
 </div>
 <?php $page->renderFooter(); ?>
