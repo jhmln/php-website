@@ -1,6 +1,8 @@
 <?php
 namespace Html;
 
+require_once("Menu.php");
+
 class PageController {
     function renderHeader($title = "Hello world!"): void {      
         $stylesheetPath = $this->buildPathToStyleSheet();
@@ -12,15 +14,13 @@ class PageController {
         echo "      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
         echo "      <link rel=\"stylesheet\" href=\"".$stylesheetPath."\">";
         echo "  </head>";
-        echo "  <body style=\"max-width:1000px;margin:auto;\">";
-        echo "      <div style=\"width:250px;display:inline-block;vertical-align:top;text-align:right;padding-top:80px;\">";
-        echo "          <div>";
-        echo "              <a href=\"/rss/feed.php\">RSS Feed</a>";
-        echo "          </div>";
-        echo "      </div>";
+        echo "  <body>";   
+        echo "      <div style=\"max-width:1000px;margin:auto;height:calc(100% - 50px);margin-top:50px;padding:8px 32px;background-color:white;\">";
     }
     
-    function renderFooter(): void {
+    function renderFooter(): void {        
+        echo "      </div>";
+        (new Menu())->render();
         echo "  </body>";
         echo "</html>";
     }
