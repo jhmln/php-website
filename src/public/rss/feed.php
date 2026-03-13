@@ -69,7 +69,6 @@
             echo ", Published: Unknown";
         }
         
-        echo ", Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
         echo "      </div>";
         
         echo "  </span>";
