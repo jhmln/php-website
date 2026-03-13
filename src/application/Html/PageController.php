@@ -5,7 +5,7 @@ require_once("Menu.php");
 
 class PageController {
     public function renderHeader($title = "Hello world!"): void {      
-        $stylesheetPath = $this->buildPathToStyleSheet();
+        $styleSheetPath = $this->buildPathToStyleSheet();
         
         echo "<!DOCTYPE html>";
         echo "<html>";
@@ -13,7 +13,7 @@ class PageController {
         echo "      <title>".htmlspecialchars($title, ENT_QUOTES, 'UTF-8')."</title>";
         echo "      <meta charset=\"UTF-8\">";
         echo "      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
-        echo "      <link rel=\"stylesheet\" href=\"".$stylesheetPath."\">";
+        echo "      <link rel=\"stylesheet\" href=\"".$styleSheetPath."\">";
         echo "  </head>";
         echo "  <body>";   
         echo "      <div style=\"max-width:1000px;margin:auto;height:calc(100% - 50px);margin-top:50px;padding:8px 32px;background-color:white;\">";
@@ -26,7 +26,7 @@ class PageController {
         echo "</html>";
     }
     
-    private function buildPathToStylesheet(): string {        
+    private function buildPathToStyleSheet(): string {        
         $path = "";
         $uri = $_SERVER["REQUEST_URI"];
         

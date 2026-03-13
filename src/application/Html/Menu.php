@@ -13,7 +13,7 @@ class Menu {
         echo "</div>";
     }
     
-    private function createAnchor($text, $url) {        
+    private function createAnchor($text, $url): void {        
         $style = "display:inline-block;";
         $style .= "padding:16px;";
         $style .= "min-width:100px;";
