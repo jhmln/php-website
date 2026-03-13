@@ -2,35 +2,39 @@
 namespace Html;
 
 class Anchor {    
-    public string $id;
-    public string $class;
-    public string $style;
+    public string $id = "";
+    public string $class = "";
+    public string $style = "";
     public string $href = "";
     public string $target = "_self";
-    public string $innerText;
+    public string $innerText = "";
     
-    function __construct(string $text = "", string $url = "") {
+    public function __construct(string $text = "", string $url = "") {
         $this->href = $url;
         $this->innerText = $text;
     }
     
-    function render(): void {
+    public function render(): void {
         $anchor = "<a";
         
-        if (isset($this->id) && $this->id !== "") $anchor .= " id=\"".$this->id."\"";
-        if (isset($this->class) && $this->class !== "") $anchor .= " class=\"".$this->class."\"";   
-        if (isset($this->style)) $anchor .= " style=\"".$this->style."\"";   
-        if (isset($this->href)) $anchor .= " href=\"".$this->href."\"";        
+        if (isset($this->id) && $this->id !== "") $anchor .= " id=\"".$this->toSafeString($this->id)."\"";
+        if (isset($this->class) && $this->class !== "") $anchor .= " class=\"".$this->toSafeString($this->class)."\"";   
+        if (isset($this->style)) $anchor .= " style=\"".$this->toSafeString($this->style)."\"";   
+        if (isset($this->href)) $anchor .= " href=\"".$this->toSafeString($this->href)."\"";        
         if (isset($this->target) && $this->target === "_blank") {
-            $anchor .= " target=\"".$this->target."\" rel=\"noopener noreferrer\"";
+            $anchor .= " target=\"".$this->toSafeString($this->target)."\" rel=\"noopener noreferrer\"";
         }
         
         $anchor .= ">";
         
-        if (isset($this->innerText)) $anchor .= $this->innerText;
+        if (isset($this->innerText)) $anchor .= $this->toSafeString($this->innerText);
         
         $anchor .= "</a>";        
         echo $anchor;
+    }
+    
+    private function toSafeString(string $value): string {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
     }
 }
 

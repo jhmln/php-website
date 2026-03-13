@@ -24,6 +24,8 @@
         $uri = $data[1];    
         $rss = simplexml_load_file($uri);
         
+        if ($rss === false) continue;
+        
         foreach ($rss->channel->item as $item)
         {   
             $rssItem = new RssFeedItem(
@@ -41,7 +43,7 @@
     }
     
     usort($items, function($first, $second){
-        return $first->publicationDateUnix < $second->publicationDateUnix;
+        return $second->publicationDateUnix <=> $first->publicationDateUnix;
     });
         
     foreach ($items as $item)
@@ -49,17 +51,24 @@
         echo "<li>";
         echo "  <span>";
         
-        echo "      <div>";
+        echo "      <span>";
         $anchor = new Anchor($item->title, $item->link);
         $anchor->target = "_blank";
         $anchor->render();
-        echo "      </div>";
+        echo "      </span>";
         
         echo "      <div>";
         echo "Source: ";
         $source = new Anchor($item->source, $item->sourceLink);
         $source->target = "_blank";
         $source->render();
+        
+        if ($item->publicationDate !== null) {
+            echo ", Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
+        } else {
+            echo ", Published: Unknown";
+        }
+        
         echo ", Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
         echo "      </div>";
         

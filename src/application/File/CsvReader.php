@@ -5,9 +5,16 @@ class CsvReader {
     public readonly array $header;
     public readonly array $data;
     
-    function __construct(string $path, string $separator = ";", bool $firstRowIsHeader = true) {
+    public function __construct(string $path, string $separator = ";", bool $firstRowIsHeader = true) {
         $file = file_get_contents($path);
-        $rows = explode(PHP_EOL, $file);
+        
+        if ($file === false) {
+            throw new \RuntimeException("Failed to read file: " . $path);
+        }    
+        
+        $normalizedFile = str_replace(["\r\n", "\r"], "\n", $file);
+        $allRows = explode("\n", $normalizedFile);
+        $rows = array_filter($allRows, fn($row) => $row !== '');
         $rowIndex = 0;
         $data = [];
         

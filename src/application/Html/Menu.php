@@ -4,7 +4,7 @@ namespace Html;
 require_once("Anchor.php");
 
 class Menu {
-    function render() {
+    public function render(): void {
         echo "<div style=\"position:fixed;top:0;left:0;width:100%;background-color:#797979;\">";
         
         $this->createAnchor("Home", "/");

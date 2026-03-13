@@ -4,9 +4,10 @@ namespace Html;
 require_once("Menu.php");
 
 class PageController {
-    function renderHeader($title = "Hello world!"): void {      
+    public function renderHeader($title = "Hello world!"): void {      
         $stylesheetPath = $this->buildPathToStyleSheet();
         
+        echo "<!DOCTYPE html>";
         echo "<html>";
         echo "  <head>";
         echo "      <title>".$title."</title>";
@@ -18,7 +19,7 @@ class PageController {
         echo "      <div style=\"max-width:1000px;margin:auto;height:calc(100% - 50px);margin-top:50px;padding:8px 32px;background-color:white;\">";
     }
     
-    function renderFooter(): void {        
+    public function renderFooter(): void {        
         echo "      </div>";
         (new Menu())->render();
         echo "  </body>";

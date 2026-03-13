@@ -3,6 +3,8 @@
 
     require_once("../application/Html/PageController.php");
     
+    http_response_code(404);
+    
     $page = new PageController();
     $page->renderHeader("Error 404");
     
