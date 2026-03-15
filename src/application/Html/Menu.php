@@ -1,14 +1,18 @@
 <?php 
 namespace Html;
 
+use Instance\Translation;
+
 require_once("Anchor.php");
 
 class Menu {
     public function render(): void {
         echo "<div style=\"position:fixed;top:0;left:0;width:100%;background-color:#797979;\">";
         
-        $this->createAnchor("Home", "/");
-        $this->createAnchor("RSS Feed", "/rss/feed.php");
+        $translations = Translation::GetInstance();
+
+        $this->createAnchor($translations->get("menu.home"), "/");
+        $this->createAnchor($translations->get("rss.feed"), "/rss/feed.php");
         
         echo "</div>";
     }

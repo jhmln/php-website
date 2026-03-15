@@ -2,22 +2,25 @@
     use File\CsvReader;
     use Html\Anchor;
     use Html\PageController;
+    use Instance\Translation;
     use Rss\RssFeedItem;
     
     require_once("../../application/File/CsvReader.php");
     require_once("../../application/Html/Anchor.php");
     require_once("../../application/Html/PageController.php");
+    require_once("../../application/Instance/Translation.php");
     require_once("../../application/Rss/RssFeedItem.php");       
     
     $page = new PageController();
-    $page->renderHeader("RSS Feed");
+    $translations = Translation::getInstance();
+    $page->renderHeader($translations->get("rss.feed"));
 ?>
-<div>
-<h1>RSS Feed</h1>
+<div style="min-height:calc(100vh - 50px);">
+<h1><?php echo $translations->get("rss.feed") ?></h1>
 <div class="list">
 	<ul>
 <?php
-    $csv = new CsvReader("feed.csv");
+    $csv = new CsvReader("../../static/feed.csv");
     $items = [];
 
     foreach ($csv->data as $data) {
@@ -58,15 +61,17 @@
         echo "      </span>";
         
         echo "      <div>";
-        echo "Source: ";
+        echo $translations->get("rss.source").": ";
         $source = new Anchor($item->source, $item->sourceLink);
         $source->target = "_blank";
         $source->render();
         
+        $published = $translations->get("rss.published");
+
         if ($item->publicationDate !== null) {
-            echo ", Published: ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
+            echo ", ".$published.": ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
         } else {
-            echo ", Published: Unknown";
+            echo ", ".$published.": ".$translations->get("rss.unknown");
         }
         
         echo "      </div>";
