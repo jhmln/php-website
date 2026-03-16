@@ -3,12 +3,16 @@ namespace Instance;
 
 use File\CsvReader;
 
+require_once("UserSession.php");
+
 class Translation {
     private static $instance = null;
     private $translations = [];
 
     function __construct() {
-        $csv = new CsvReader("../../static/translations/fi.csv");
+        $session = UserSession::getInstance();
+
+        $csv = new CsvReader("../../static/translations/".$session->language.".csv");
         $items = [];
 
         foreach ($csv->data as $data) {
