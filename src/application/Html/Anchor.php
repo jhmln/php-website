@@ -14,7 +14,15 @@ class Anchor {
         $this->innerText = $text;
     }
     
-    public function render(): void {
+    public function render(): void {        
+        echo $this->build();
+    }
+
+    public function toString(): string {
+        return $this->build();
+    }
+
+    private function build(): string {
         $anchor = "<a";
         
         if (isset($this->id) && $this->id !== "") $anchor .= " id=\"".$this->toSafeString($this->id)."\"";
@@ -30,7 +38,7 @@ class Anchor {
         if (isset($this->innerText)) $anchor .= $this->toSafeString($this->innerText);
         
         $anchor .= "</a>";        
-        echo $anchor;
+        return $anchor;
     }
     
     private function toSafeString(string $value): string {

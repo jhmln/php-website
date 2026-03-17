@@ -9,7 +9,7 @@ class Translation {
     private static $instance = null;
     private $translations = [];
 
-    function __construct() {
+    protected function __construct() {
         $session = UserSession::getInstance();
 
         $csv = new CsvReader("../../static/translations/".$session->language.".csv");
@@ -25,7 +25,7 @@ class Translation {
         $this->translations = $items;
     }
 
-    public static function getInstance() {
+    public static function getInstance(): self {
         if (self::$instance === null) {
             self::$instance = new Translation();
         }
@@ -33,11 +33,17 @@ class Translation {
         return self::$instance;
     }
 
-    public function get(string $key): string {
+    public function get(string $key, ...$substrings): string {
         $value = $this->translations[$key] ?? null;
 
         if ($value === null) {
             throw new \RunTimeException("Unknown translation key: \"".$key."\"");
+        }
+
+        if (is_array($substrings)) {
+            for ($index = 0; $index < count($substrings); $index++) {
+                $value = str_replace("%".$index, $substrings[$index], $value);
+            }
         }
 
         return $value;

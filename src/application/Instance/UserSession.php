@@ -5,11 +5,11 @@ class UserSession {
     private static $instance = null;
     public readonly string $language;
 
-    function __construct($language) {
+    protected function __construct($language) {
         $this->language = $language;
     }
 
-    public static function getInstance() {
+    public static function getInstance(): self {
         if (self::$instance === null) {
             self::$instance = new UserSession("fi");
         }

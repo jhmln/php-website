@@ -1,6 +1,5 @@
 Index;Translation;
 menu.home;Etusivu;
 rss.feed;RSS Syöte;
-rss.published;Julkaistu;
-rss.source;Lähde;
+rss.sourcepublished;Lähde: %0, Julkaistu: %1;
 rss.unknown;Ei tiedossa;

@@ -61,18 +61,16 @@
         echo "      </span>";
         
         echo "      <div>";
-        echo $translations->get("rss.source").": ";
-        $source = new Anchor($item->source, $item->sourceLink);
-        $source->target = "_blank";
-        $source->render();
         
-        $published = $translations->get("rss.published");
+        $source = new Anchor($item->source, $item->sourceLink);
+        $source->target = "_blank";        
+        $date = $translations->get("rss.unknown");
 
         if ($item->publicationDate !== null) {
-            echo ", ".$published.": ".$item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
-        } else {
-            echo ", ".$published.": ".$translations->get("rss.unknown");
+            $date = $item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
         }
+
+        echo $translations->get("rss.sourcepublished", $source->toString(), $date);
         
         echo "      </div>";
         

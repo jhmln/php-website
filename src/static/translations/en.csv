@@ -1,6 +1,5 @@
 Index;Translation;
 menu.home;Home;
 rss.feed;RSS Feed;
-rss.published;Published;
-rss.source;Source;
+rss.sourcepublished;Source: %0, Published: %1;
 rss.unknown;Unknown;
