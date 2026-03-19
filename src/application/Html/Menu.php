@@ -19,8 +19,9 @@ class Menu {
         $this->createAnchor($translations->get("rss.feed"), "/rss/feed.php");
         echo "</td>";
         
-        $this->createLanguageButton("fi");
-        $this->createLanguageButton("en");
+        $handlerPath = $this->buildPathToHandler();
+        $this->createLanguageButton($handlerPath, "fi");
+        $this->createLanguageButton($handlerPath, "en");
 
         echo "</tr>";
         echo "</tbody>";
@@ -40,10 +41,21 @@ class Menu {
         $anchor->render();
     }
 
-    private function createLanguageButton($value): void {
+    private function buildPathToHandler(): string {        
+        $path = "";
+        $uri = $_SERVER["REQUEST_URI"];
+        
+        for($i = 0; $i < substr_count($uri, "/") - 1; $i++) {
+            $path .= "../"; 
+        }              
+        
+        return $path."session/languagehandler.php";
+    }
+
+    private function createLanguageButton(string $actionPath, string $value): void {
         echo "<td style=\"padding-right:16px\">";
-        echo "<form method=\"post\" action=\"".__DIR__."\">";
-        echo "<input type=\"submit\" value=\"".$value."\" />";
+        echo "<form method=\"post\" action=\"".$actionPath."\">";
+        echo "<input type=\"submit\" name=\"language\" value=\"".$value."\" />";
         echo "</form>";
         echo "</td>";
     }

@@ -12,6 +12,10 @@ class Translation {
     protected function __construct() {
         $session = UserSession::getInstance();
 
+        if (!isset($session->language)) {
+            $session->language = "en";
+        }
+
         $csv = new CsvReader("../../static/translations/".$session->language.".csv");
         $items = [];
 
