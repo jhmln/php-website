@@ -12,6 +12,21 @@
         }
     }
 
-    header("Location:".$_SERVER["HTTP_REFERER"]);
+    $redirect = "/";
+    
+    if (isset($_SERVER["HTTP_REFERER"])) {
+        $parts = parse_url($_SERVER["HTTP_REFERER"]);
+        $isSameHost = is_array($parts) && ($parts["host"] ?? "") === ($_SERVER["HTTP_HOST"] ?? "");
+
+        if ($isSameHost && isset($parts["path"]) && str_starts_with($parts["path"], "/")) {
+            $redirect = $parts["path"];
+
+            if (isset($parts["query"])) {
+                $redirect .= "?".$parts["query"];
+            }
+        }
+    }
+
+    header("Location: ".$redirect);
     exit();
 ?>

@@ -3,7 +3,8 @@ namespace Html;
 
 use Instance\Translation;
 
-require_once("Anchor.php");
+require_once(__DIR__."/Anchor.php");
+require_once(__DIR__."/../Instance/Translation.php");
 
 class Menu {
     public function render(): void {
@@ -43,7 +44,7 @@ class Menu {
 
     private function buildPathToHandler(): string {        
         $path = "";
-        $uri = $_SERVER["REQUEST_URI"];
+        $uri = parse_url($_SERVER["REQUEST_URI"] ?? "/", PHP_URL_PATH) ?? "/";
         
         for($i = 0; $i < substr_count($uri, "/") - 1; $i++) {
             $path .= "../"; 

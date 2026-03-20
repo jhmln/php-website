@@ -70,7 +70,7 @@
             $date = $item->publicationDate->setTimezone(new DateTimeZone("Europe/Helsinki"))->format("d.m.Y H:i");
         }
 
-        echo $translations->get("rss.sourcepublished", $source->toString(), $date);
+        echo $translations->get("rss.sourcepublished", (string)$source, $date);
         
         echo "      </div>";
         

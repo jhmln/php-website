@@ -3,7 +3,8 @@ namespace Instance;
 
 use File\CsvReader;
 
-require_once("UserSession.php");
+require_once(__DIR__ . "/UserSession.php");
+require_once(__DIR__ . "/../File/CsvReader.php");
 
 class Translation {
     private static $instance = null;
@@ -16,7 +17,7 @@ class Translation {
             $session->language = "en";
         }
 
-        $csv = new CsvReader("../../static/translations/".$session->language.".csv");
+        $csv = new CsvReader(__DIR__ . "/../../static/translations/".$session->language.".csv");
         $items = [];
 
         foreach ($csv->data as $data) {
