@@ -14,23 +14,29 @@ class Anchor {
         $this->innerText = $text;
     }
     
-    public function render(): void {
+    public function render(): void {        
+        echo $this->build();
+    }
+
+    public function __toString(): string {
+        return $this->build();
+    }
+
+    private function build(): string {
         $anchor = "<a";
         
-        if (isset($this->id) && $this->id !== "") $anchor .= " id=\"".$this->toSafeString($this->id)."\"";
-        if (isset($this->class) && $this->class !== "") $anchor .= " class=\"".$this->toSafeString($this->class)."\"";   
-        if (isset($this->style)) $anchor .= " style=\"".$this->toSafeString($this->style)."\"";   
-        if (isset($this->href)) $anchor .= " href=\"".$this->toSafeString($this->href)."\"";        
-        if (isset($this->target) && $this->target === "_blank") {
+        if ($this->id !== "") $anchor .= " id=\"".$this->toSafeString($this->id)."\"";
+        if ($this->class !== "") $anchor .= " class=\"".$this->toSafeString($this->class)."\"";   
+        if ($this->style !== "") $anchor .= " style=\"".$this->toSafeString($this->style)."\"";   
+        if ($this->href !== "") $anchor .= " href=\"".$this->toSafeString($this->href)."\"";                
+        if ($this->target === "_blank") {
             $anchor .= " target=\"".$this->toSafeString($this->target)."\" rel=\"noopener noreferrer\"";
         }
         
-        $anchor .= ">";
-        
-        if (isset($this->innerText)) $anchor .= $this->toSafeString($this->innerText);
-        
+        $anchor .= ">";        
+        $anchor .= $this->toSafeString($this->innerText);            
         $anchor .= "</a>";        
-        echo $anchor;
+        return $anchor;
     }
     
     private function toSafeString(string $value): string {

@@ -28,7 +28,7 @@ class PageController {
     
     private function buildPathToStyleSheet(): string {        
         $path = "";
-        $uri = $_SERVER["REQUEST_URI"];
+        $uri = parse_url($_SERVER["REQUEST_URI"] ?? "/", PHP_URL_PATH) ?? "/";
         
         for($i = 0; $i < substr_count($uri, "/") - 1; $i++) {
             $path .= "../"; 
